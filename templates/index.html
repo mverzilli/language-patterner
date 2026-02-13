@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% set theme_css = config.style is not none %}
+
+{% block title %}{{ config.title }}{% endblock %}
+
+{% block content %}
+<div class="index-page">
+    <div class="book-header">
+        <h1>{{ config.title }}</h1>
+        {% if config.subtitle %}<p class="subtitle">{{ config.subtitle }}</p>{% endif %}
+        {% if config.authors %}
+        <p class="authors">{{ config.authors | join(", ") }}</p>
+        {% endif %}
+        <p class="pattern-count">{{ patterns | length }} patterns</p>
+    </div>
+
+    {% for scale in config.scales %}
+    {% set scale_patterns = patterns_by_scale.get(scale.id, []) %}
+    {% if scale_patterns %}
+    <section class="scale-group" id="scale-{{ scale.id }}">
+        <h2>
+            <a href="scale/{{ scale.id }}.html">{{ scale.name }}</a>
+            <span class="scale-range">{{ scale.range[0] }}&ndash;{{ scale.range[1] }}</span>
+        </h2>
+        {% if scale.description %}<p class="scale-description">{{ scale.description }}</p>{% endif %}
+
+        <ol class="pattern-list">
+            {% for pattern in scale_patterns %}
+            <li class="pattern-entry confidence-{{ pattern.confidence }}">
+                <a href="pattern/{{ pattern.number }}.html">
+                    <span class="pattern-number">{{ pattern.number }}</span>
+                    <span class="pattern-name">{{ pattern.name }}</span>
+                    <span class="confidence-indicator" title="{{ confidence_labels.get(pattern.confidence, '') }}">{{ pattern.confidence_stars }}</span>
+                </a>
+                {% if pattern.problem %}
+                <p class="pattern-problem">{{ pattern.problem }}</p>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ol>
+    </section>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

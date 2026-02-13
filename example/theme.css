@@ -1,0 +1,16 @@
+/* Theme: clean technical documentation with a warm tone */
+
+:root {
+    --font-body: "Palatino Linotype", Palatino, Georgia, serif;
+    --font-heading: "Palatino Linotype", Palatino, Georgia, serif;
+
+    --color-bg: #fefcf9;
+    --color-text: #333;
+    --color-text-muted: #666;
+    --color-heading: #2c1810;
+    --color-link: #6b4226;
+    --color-link-hover: #8b5e3c;
+    --color-border: #ddd0c0;
+    --color-surface: #f8f3ec;
+    --color-accent: #6b4226;
+}

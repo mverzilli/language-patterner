@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ config.title }}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ root_prefix | default('') }}style.css">
+    {% if theme_css %}<link rel="stylesheet" href="{{ root_prefix | default('') }}theme.css">{% endif %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="{{ root_prefix | default('') }}index.html" class="site-title">{{ config.title }}</a>
+            {% if config.subtitle %}<span class="site-subtitle">{{ config.subtitle }}</span>{% endif %}
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search patterns..." autocomplete="off">
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+        </div>
+        <nav class="scale-nav">
+            {% for scale in config.scales %}
+            <a href="{{ root_prefix | default('') }}scale/{{ scale.id }}.html">{{ scale.name }}</a>
+            {% endfor %}
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <p>{% for author in config.authors %}{{ author }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+        <p class="generator-credit">Built with <a href="https://github.com/language-patterner">language-patterner</a></p>
+    </footer>
+
+    <script>
+        window.SEARCH_INDEX_URL = "{{ root_prefix | default('') }}search-index.json";
+        window.ROOT_PREFIX = "{{ root_prefix | default('') }}";
+    </script>
+    <script src="{{ root_prefix | default('') }}search.js"></script>
+</body>
+</html>

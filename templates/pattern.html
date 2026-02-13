@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% set root_prefix = "../" %}
+{% set theme_css = config.style is not none %}
+
+{% block title %}{{ pattern.number }}. {{ pattern.name }} — {{ config.title }}{% endblock %}
+
+{% block content %}
+<article class="pattern-page">
+    <nav class="pattern-nav">
+        {% if prev_pattern %}
+        <a href="{{ prev_pattern.number }}.html" class="nav-prev">&larr; {{ prev_pattern.number }}. {{ prev_pattern.name }}</a>
+        {% else %}
+        <span class="nav-prev"></span>
+        {% endif %}
+
+        <a href="../index.html" class="nav-up">All Patterns</a>
+
+        {% if next_pattern %}
+        <a href="{{ next_pattern.number }}.html" class="nav-next">{{ next_pattern.number }}. {{ next_pattern.name }} &rarr;</a>
+        {% else %}
+        <span class="nav-next"></span>
+        {% endif %}
+    </nav>
+
+    <header class="pattern-header">
+        {% if scale %}
+        <a href="../scale/{{ scale.id }}.html" class="pattern-scale-link">{{ scale.name }}</a>
+        {% endif %}
+        <h1>
+            <span class="pattern-number">{{ pattern.number }}</span>
+            {{ pattern.name }}
+            <span class="confidence-indicator" title="{{ confidence_labels.get(pattern.confidence, '') }}">{{ pattern.confidence_stars }}</span>
+        </h1>
+        {% if pattern.tags %}
+        <div class="pattern-tags">
+            {% for tag in pattern.tags %}
+            <span class="tag">{{ tag }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </header>
+
+    {% if pattern.contained_by_patterns %}
+    <div class="cross-ref cross-ref-up">
+        <span class="cross-ref-label">Contained by:</span>
+        {% for ref in pattern.contained_by_patterns %}
+        <a href="{{ ref.number }}.html" class="cross-ref-link">{{ ref.number }}. {{ ref.name }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="pattern-body">
+        {{ pattern.body_html | safe }}
+    </div>
+
+    {% if pattern.contains_patterns %}
+    <div class="cross-ref cross-ref-down">
+        <span class="cross-ref-label">Contains:</span>
+        {% for ref in pattern.contains_patterns %}
+        <a href="{{ ref.number }}.html" class="cross-ref-link">{{ ref.number }}. {{ ref.name }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <nav class="pattern-nav pattern-nav-bottom">
+        {% if prev_pattern %}
+        <a href="{{ prev_pattern.number }}.html" class="nav-prev">&larr; {{ prev_pattern.number }}. {{ prev_pattern.name }}</a>
+        {% else %}
+        <span class="nav-prev"></span>
+        {% endif %}
+
+        <a href="../index.html" class="nav-up">All Patterns</a>
+
+        {% if next_pattern %}
+        <a href="{{ next_pattern.number }}.html" class="nav-next">{{ next_pattern.number }}. {{ next_pattern.name }} &rarr;</a>
+        {% else %}
+        <span class="nav-next"></span>
+        {% endif %}
+    </nav>
+</article>
+{% endblock %}

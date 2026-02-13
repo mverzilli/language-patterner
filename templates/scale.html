@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% set root_prefix = "../" %}
+{% set theme_css = config.style is not none %}
+
+{% block title %}{{ scale.name }} — {{ config.title }}{% endblock %}
+
+{% block content %}
+<div class="scale-page">
+    <header class="scale-header">
+        <h1>{{ scale.name }}</h1>
+        <p class="scale-range">Patterns {{ scale.range[0] }}&ndash;{{ scale.range[1] }}</p>
+        {% if scale.description %}<p class="scale-description">{{ scale.description }}</p>{% endif %}
+    </header>
+
+    <ol class="pattern-list">
+        {% for pattern in patterns %}
+        <li class="pattern-entry confidence-{{ pattern.confidence }}">
+            <a href="../pattern/{{ pattern.number }}.html">
+                <span class="pattern-number">{{ pattern.number }}</span>
+                <span class="pattern-name">{{ pattern.name }}</span>
+                <span class="confidence-indicator" title="{{ confidence_labels.get(pattern.confidence, '') }}">{{ pattern.confidence_stars }}</span>
+            </a>
+            {% if pattern.problem %}
+            <p class="pattern-problem">{{ pattern.problem }}</p>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ol>
+
+    <a href="../index.html" class="back-link">&larr; Back to all patterns</a>
+</div>
+{% endblock %}

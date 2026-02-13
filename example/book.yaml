@@ -1,0 +1,25 @@
+title: "A Pattern Language for Software Architecture"
+subtitle: "Systems, Components, Code"
+authors:
+  - The Patterner Team
+
+scales:
+  - id: systems
+    name: "Systems & Services"
+    description: "Patterns that shape the overall system architecture"
+    range: [1, 10]
+  - id: components
+    name: "Components & Modules"
+    description: "Patterns for organizing code into coherent units"
+    range: [11, 20]
+  - id: code
+    name: "Code & Implementation"
+    description: "Patterns at the level of individual functions and data structures"
+    range: [21, 30]
+
+confidence_labels:
+  0: "Hypothesis"
+  1: "Progressing"
+  2: "Invariant"
+
+style: "clean technical documentation with a warm tone"
