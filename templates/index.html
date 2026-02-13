@@ -14,6 +14,44 @@
         <p class="pattern-count">{{ patterns | length }} patterns</p>
     </div>
 
+    {% if hierarchy_roots %}
+    <section class="containment-tree">
+        <h2>Pattern Structure</h2>
+        {% macro render_tree(nodes) %}
+        <ul class="tree-list">
+            {% for node in nodes %}
+            <li class="tree-node" data-scale-index="{{ scale_index.get(node.scale_id, 0) }}">
+                <a class="tree-node-link" href="pattern/{{ node.number }}.html">
+                    <span class="tree-node-number">{{ node.number }}</span>
+                    <span class="tree-node-name">{{ node.name }}</span>
+                </a>
+                {% if node.contains_patterns %}
+                {{ render_tree(node.contains_patterns) }}
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endmacro %}
+        {{ render_tree(hierarchy_roots) }}
+
+        {% if orphan_patterns %}
+        <div class="orphan-patterns">
+            <h3>Independent Patterns</h3>
+            <ul class="tree-list">
+                {% for node in orphan_patterns %}
+                <li class="tree-node" data-scale-index="{{ scale_index.get(node.scale_id, 0) }}">
+                    <a class="tree-node-link" href="pattern/{{ node.number }}.html">
+                        <span class="tree-node-number">{{ node.number }}</span>
+                        <span class="tree-node-name">{{ node.name }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </section>
+    {% endif %}
+
     {% for scale in config.scales %}
     {% set scale_patterns = patterns_by_scale.get(scale.id, []) %}
     {% if scale_patterns %}

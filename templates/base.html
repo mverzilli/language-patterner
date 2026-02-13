@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ root_prefix | default('') }}style.css">
     {% if theme_css %}<link rel="stylesheet" href="{{ root_prefix | default('') }}theme.css">{% endif %}
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
     <header class="site-header">
         <div class="header-content">
             <a href="{{ root_prefix | default('') }}index.html" class="site-title">{{ config.title }}</a>
@@ -21,6 +21,8 @@
             {% for scale in config.scales %}
             <a href="{{ root_prefix | default('') }}scale/{{ scale.id }}.html">{{ scale.name }}</a>
             {% endfor %}
+            <span class="nav-separator">|</span>
+            <a href="{{ root_prefix | default('') }}graph.html">Graph</a>
         </nav>
     </header>
 

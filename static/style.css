@@ -16,6 +16,12 @@
     --color-surface: #f5f0e8;
     --color-accent: #8b4513;
 
+    --color-scale-0: #6a8e7f;
+    --color-scale-1: #c0965e;
+    --color-scale-2: #8b6e99;
+    --color-scale-3: #5b8fa8;
+    --color-scale-4: #b07070;
+
     --max-width: 48rem;
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
@@ -505,6 +511,172 @@ main {
     text-decoration: underline;
 }
 
+/* Nav separator */
+.nav-separator {
+    color: var(--color-border);
+    user-select: none;
+}
+
+/* Containment tree */
+.containment-tree {
+    margin-bottom: var(--spacing-xl);
+}
+
+.containment-tree h2 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--color-heading);
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: var(--spacing-sm);
+}
+
+.tree-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tree-list .tree-list {
+    padding-left: 1.5rem;
+}
+
+.tree-node {
+    position: relative;
+    padding: 0.3rem 0;
+}
+
+.tree-list .tree-list .tree-node {
+    border-left: 2px solid var(--color-border);
+    padding-left: 1rem;
+    margin-left: 0;
+}
+
+.tree-list .tree-list .tree-node::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1em;
+    width: 0.75rem;
+    border-top: 2px solid var(--color-border);
+}
+
+.tree-node-link {
+    text-decoration: none;
+    color: var(--color-text);
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--spacing-sm);
+}
+
+.tree-node-link:hover .tree-node-name {
+    color: var(--color-link);
+}
+
+.tree-node-number {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.tree-node-name {
+    font-weight: 600;
+}
+
+.tree-node[data-scale-index="0"] {
+    border-left-color: var(--color-scale-0);
+}
+.tree-node[data-scale-index="0"]::before {
+    border-top-color: var(--color-scale-0);
+}
+.tree-node[data-scale-index="1"] {
+    border-left-color: var(--color-scale-1);
+}
+.tree-node[data-scale-index="1"]::before {
+    border-top-color: var(--color-scale-1);
+}
+.tree-node[data-scale-index="2"] {
+    border-left-color: var(--color-scale-2);
+}
+.tree-node[data-scale-index="2"]::before {
+    border-top-color: var(--color-scale-2);
+}
+.tree-node[data-scale-index="3"] {
+    border-left-color: var(--color-scale-3);
+}
+.tree-node[data-scale-index="3"]::before {
+    border-top-color: var(--color-scale-3);
+}
+.tree-node[data-scale-index="4"] {
+    border-left-color: var(--color-scale-4);
+}
+.tree-node[data-scale-index="4"]::before {
+    border-top-color: var(--color-scale-4);
+}
+
+.orphan-patterns {
+    margin-top: var(--spacing-lg);
+}
+
+.orphan-patterns h3 {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    margin: 0 0 var(--spacing-sm);
+}
+
+/* Graph page */
+.page-graph main {
+    max-width: none;
+    padding: var(--spacing-md);
+}
+
+.graph-header {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.graph-header h1 {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    color: var(--color-heading);
+    margin: 0 0 var(--spacing-sm);
+}
+
+.graph-legend {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    margin-bottom: var(--spacing-md);
+    font-size: 0.85rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.legend-swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.graph-container {
+    width: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-bg);
+    position: relative;
+}
+
+.graph-container canvas {
+    display: block;
+    width: 100%;
+    cursor: default;
+}
+
 /* Responsive */
 @media (max-width: 640px) {
     .header-content {
@@ -543,5 +715,18 @@ main {
 
     .pattern-problem {
         margin-left: 0;
+    }
+
+    .tree-list .tree-list {
+        padding-left: 1rem;
+    }
+
+    .graph-legend {
+        font-size: 0.75rem;
+        gap: var(--spacing-sm);
+    }
+
+    .scale-nav {
+        flex-wrap: wrap;
     }
 }

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% set theme_css = config.style is not none %}
+
+{% block title %}Graph - {{ config.title }}{% endblock %}
+
+{% block body_class %}page-graph{% endblock %}
+
+{% block content %}
+<div class="graph-header">
+    <h1>Pattern Relationships</h1>
+</div>
+
+<div class="graph-legend">
+    {% for scale in config.scales %}
+    <span class="legend-item">
+        <span class="legend-swatch" style="background: var(--color-scale-{{ loop.index0 }})"></span>
+        {{ scale.name }}
+    </span>
+    {% endfor %}
+</div>
+
+<div class="graph-container">
+    <canvas id="graph-canvas"></canvas>
+</div>
+
+<script>
+    window.PATTERNS_JSON_URL = "{{ root_prefix | default('') }}patterns.json";
+    window.ROOT_PREFIX = "{{ root_prefix | default('') }}";
+</script>
+<script src="{{ root_prefix | default('') }}graph.js"></script>
+{% endblock %}

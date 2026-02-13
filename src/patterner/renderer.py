@@ -44,11 +44,29 @@ def render_site(
             p for p in sorted_patterns if p.scale_id == scale.id
         ]
 
+    # Build scale index lookup for templates
+    scale_index = {s.id: i for i, s in enumerate(config.scales)}
+    env.globals["scale_index"] = scale_index
+
+    # Compute hierarchy data for index page tree
+    has_contains = {p.number for p in sorted_patterns if p.contains}
+    has_contained_by = {p.number for p in sorted_patterns if p.contained_by}
+    hierarchy_roots = [
+        p for p in sorted_patterns
+        if p.contains_patterns and not p.contained_by
+    ]
+    orphan_patterns = [
+        p for p in sorted_patterns
+        if not p.contains and not p.contained_by
+    ]
+
     # Render index
     tmpl = env.get_template("index.html")
     (output_dir / "index.html").write_text(tmpl.render(
         patterns=sorted_patterns,
         patterns_by_scale=patterns_by_scale,
+        hierarchy_roots=hierarchy_roots,
+        orphan_patterns=orphan_patterns,
     ))
 
     # Render individual pattern pages
@@ -74,6 +92,10 @@ def render_site(
             scale=scale,
             patterns=patterns_by_scale.get(scale.id, []),
         ))
+
+    # Render graph page
+    tmpl = env.get_template("graph.html")
+    (output_dir / "graph.html").write_text(tmpl.render())
 
 
 def generate_patterns_json(patterns: list[Pattern], config: Config, output_dir: Path) -> None:
