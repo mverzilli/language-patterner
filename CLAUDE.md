@@ -101,7 +101,7 @@ The solution this pattern proposes.
 
 ## Consequences
 
-Benefits and trade-offs of applying this pattern.
+Benefits and trade-offs of applying this pattern. Reference related patterns with links: [Other Pattern](11.html).
 ```
 
    Frontmatter fields:
@@ -113,6 +113,8 @@ Benefits and trade-offs of applying this pattern.
    - `tags` — keyword list
 
    Keep `contains`/`contained_by` consistent in both directions. Larger-scale patterns typically contain smaller-scale ones.
+
+   **Cross-referencing in body text:** When a pattern's prose mentions another pattern by name, link to it using a markdown link with the target pattern's number: `[Arm Weight](21.html)`. This produces navigable hyperlinks in the built site, making the web of relationships discoverable from within the text itself — not just from the frontmatter metadata. The `contains`/`contained_by` frontmatter captures the structural hierarchy; inline links capture the conversational references that arise naturally when explaining how patterns relate.
 
 4. **Build and validate:**
 
